@@ -1,14 +1,11 @@
-    
-    
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Firebase Data by ID</title>
   <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
   <script>
-    // Firebase configuration (REPLACE WITH YOUR ACTUAL CONFIG, BUT DO NOT EMBED API KEY IN CLIENT-SIDE CODE)
+    // აქ ჩასვი შენი ბაზის კონფიგის მონაცემები
     const firebaseConfig = {
       apiKey: "...",
     authDomain: "...",
@@ -25,7 +22,7 @@
     const db = firebase.database();
 
     function getAllData(callback) {
-      const dataRef = db.ref('test'); // Path to your "test" node
+      const dataRef = db.ref('test'); // ბაზის მისამართი ამშემთხვევაში "test"
 
       dataRef.once('value', (snapshot) => {
         const data = snapshot.val();
@@ -41,11 +38,11 @@
       dataContainer.innerHTML = '';
 
       if (data) {
-        for (const id in data) { // Iterate through each ID
+        for (const id in data) { 
           const item = data[id];
-          if (item && item.name) { // Check if the item and name property exist
+          if (item && item.name) { 
             const nameElement = document.createElement('p');
-            nameElement.textContent = `${item.name}, ${item.price} ლ`; // Display ID and name
+            nameElement.textContent = `${item.name}, ${item.price} ლ`; 
             dataContainer.appendChild(nameElement);
           }
         }
@@ -56,17 +53,19 @@
       }
     });
   </script>
-  <style>
-  #item.price{background: red;}
+ 
+<style>
   p {padding:4px;
   margin:0px;
     background: #469;
     color: rgb(255, 255, 255);
     font-size: 16px;
-    margin-bottom: 5px; /* Example: Add some spacing between items */
-  }</style>
+    margin-bottom: 5px; 
+  }
+</style>
 </head>
-<body>dasd
+
+<body>პროდუქტები
   <div id="data-container"></div>
 </body>
 </html>
