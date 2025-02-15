@@ -1,0 +1,72 @@
+    
+    
+
+    <!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Data by ID</title>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+  <script>
+    // Firebase configuration (REPLACE WITH YOUR ACTUAL CONFIG, BUT DO NOT EMBED API KEY IN CLIENT-SIDE CODE)
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZbFT4kT5xM9tcBlDI6aLiJ_I8rAGnpI8",
+    authDomain: "mkchat-5d328.firebaseapp.com",
+    databaseURL: "https://mkchat-5d328-default-rtdb.firebaseio.com",
+    projectId: "mkchat-5d328",
+    storageBucket: "mkchat-5d328.appspot.com",
+    messagingSenderId: "1080700727644",
+    appId: "1:1080700727644:web:5c0a0d84d616d5d54a5199",
+    measurementId: "G-HZL6596PVF"
+    };
+
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function getAllData(callback) {
+      const dataRef = db.ref('test'); // Path to your "test" node
+
+      dataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        callback(data);
+      }, (error) => {
+        console.error("Error fetching data:", error);
+        callback(null);
+      });
+    }
+
+    getAllData((data) => {
+      const dataContainer = document.getElementById('data-container');
+      dataContainer.innerHTML = '';
+
+      if (data) {
+        for (const id in data) { // Iterate through each ID
+          const item = data[id];
+          if (item && item.name) { // Check if the item and name property exist
+            const nameElement = document.createElement('p');
+            nameElement.textContent = `${item.name}, ${item.price} ლ`; // Display ID and name
+            dataContainer.appendChild(nameElement);
+          }
+        }
+      } else {
+        const messageElement = document.createElement('p');
+        messageElement.textContent = "ბაზაში არაფერია.";
+        dataContainer.appendChild(messageElement);
+      }
+    });
+  </script>
+  <style>
+  #item.price{background: red;}
+  p {padding:4px;
+  margin:0px;
+    background: #469;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    margin-bottom: 5px; /* Example: Add some spacing between items */
+  }</style>
+</head>
+<body>dasd
+  <div id="data-container"></div>
+</body>
+</html>
